@@ -34,14 +34,13 @@ def esta_disponible(biblioteca, llibre):
     Exemple de retorn:
         True
     """
-    
     for llibre_b in biblioteca:
         if llibre_b["llibre"] == llibre:
-            for usuari in llibre_b["prestecs"]:
-                if usuari["retornat"] == False:
+            for prestec in llibre_b["prestecs"]:
+                if prestec["retornat"] == False:
                     return False
-            
-    return True
+            return True  # Retorna True només si tots els préstecs han estat retornats
+    return False  # Retorna False si el llibre no es troba a la biblioteca
 
 def usuari_te_prestecs(biblioteca, usuari):
     """
@@ -59,8 +58,8 @@ def usuari_te_prestecs(biblioteca, usuari):
         False
     """
     for llibre in biblioteca:
-        for us in llibre["prestecs"]:
-            if us["usuari"] == usuari and us["retornat"] == False:
+        for prestec in llibre["prestecs"]:
+            if prestec["usuari"] == usuari and prestec["retornat"] == False:
                 return True
     return False
 
@@ -82,64 +81,63 @@ def dies_prestec_total(biblioteca, llibre):
     total = 0
     for llibre_b in biblioteca:
         if llibre_b["llibre"] == llibre:
-            for usuari in llibre_b["prestecs"]:
-                total += usuari["dies"]
+            for prestec in llibre_b["prestecs"]:
+                total += prestec["dies"]
             return total
-    return total    
+    return total
+    
 def main():
     biblioteca = [
-    {
-        "llibre": "El Quixot",
-        "autor": "Cervantes",
-        "categoria": "novel·la",
-        "prestecs": [
-            {"usuari": "Joan", "dies": 15, "retornat": True},
-            {"usuari": "Maria", "dies": 20, "retornat": False},
-            {"usuari": "Pere", "dies": 12, "retornat": True}
-        ]
-    },
-    {
-        "llibre": "1984",
-        "autor": "Orwell",
-        "categoria": "ciència-ficció",
-        "prestecs": [
-            {"usuari": "Pere", "dies": 10, "retornat": True},
-            {"usuari": "Anna", "dies": 25, "retornat": True},
-            {"usuari": "Marta", "dies": 18, "retornat": False}
-        ]
-    },
-    {
-        "llibre": "El Senyor dels Anells",
-        "autor": "Tolkien",
-        "categoria": "fantasia",
-        "prestecs": [
-            {"usuari": "Maria", "dies": 30, "retornat": True},
-            {"usuari": "Joan", "dies": 22, "retornat": True},
-            {"usuari": "Pere", "dies": 15, "retornat": False}
-        ]
-    },
-    {
-        "llibre": "Crim i Càstig",
-        "autor": "Dostoievski",
-        "categoria": "novel·la",
-        "prestecs": [
-            {"usuari": "Anna", "dies": 28, "retornat": True},
-            {"usuari": "Marta", "dies": 14, "retornat": True},
-            {"usuari": "Joan", "dies": 21, "retornat": True}
-        ]
-    }
+        {
+            "llibre": "El Quixot",
+            "autor": "Cervantes",
+            "categoria": "novel·la",
+            "prestecs": [
+                {"usuari": "Joan", "dies": 15, "retornat": True},
+                {"usuari": "Maria", "dies": 20, "retornat": False},
+                {"usuari": "Pere", "dies": 12, "retornat": True}
+            ]
+        },
+        {
+            "llibre": "1984",
+            "autor": "Orwell",
+            "categoria": "ciència-ficció",
+            "prestecs": [
+                {"usuari": "Pere", "dies": 10, "retornat": True},
+                {"usuari": "Anna", "dies": 25, "retornat": True},
+                {"usuari": "Marta", "dies": 18, "retornat": False}
+            ]
+        },
+        {
+            "llibre": "El Senyor dels Anells",
+            "autor": "Tolkien",
+            "categoria": "fantasia",
+            "prestecs": [
+                {"usuari": "Maria", "dies": 30, "retornat": True},
+                {"usuari": "Joan", "dies": 22, "retornat": True},
+                {"usuari": "Pere", "dies": 15, "retornat": False}
+            ]
+        },
+        {
+            "llibre": "Crim i Càstig",
+            "autor": "Dostoievski",
+            "categoria": "novel·la",
+            "prestecs": [
+                {"usuari": "Anna", "dies": 28, "retornat": True},
+                {"usuari": "Marta", "dies": 14, "retornat": True},
+                {"usuari": "Joan", "dies": 21, "retornat": True}
+            ]
+        }
     ]
     
     # exercici 1
     print(llibres_per_categoria(biblioteca, "novel·la"))
-
     
     # exercici 2
     print(esta_disponible(biblioteca, "El Senyor dels Anells"))
     
     # exercici 3
     print(usuari_te_prestecs(biblioteca, "Pere"))
-
 
     # exercici 4
     print(dies_prestec_total(biblioteca, "El Senyor dels Anells"))  
