@@ -1,0 +1,21 @@
+name: Executar Proves
+
+on:
+  push:
+    branches: [ main ]
+  pull_request: 
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2       #Serveix per agafar el codi del repositori
+      - name: Tasca
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9 
+      - name: Instal·lar pytest
+        run: pip install pytest  
+      - name: Executar proves
+        run: pytest  
